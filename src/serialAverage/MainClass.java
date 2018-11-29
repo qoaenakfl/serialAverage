@@ -1,15 +1,16 @@
 package serialAverage;
 import java.util.Scanner;
+import java.util.Date;
 
 public class MainClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		Date logTime = new Date();
+		
 		Scanner scanner = new Scanner(System.in);
-		String filename;
-		System.out.println("input file name : ");
-		filename = scanner.nextLine();
-		OtherClass myObject = new OtherClass("/Users/chinae/Desktop/"+filename+".txt");
+		OtherClass myObject = new OtherClass("serial.txt", "Json.txt");
 		
 		String sec;
 		System.out.println("input timer per sec : ");
@@ -24,7 +25,8 @@ public class MainClass {
 				while(true){
 					
 					if(timer.checkTime()){
-						myObject.averText("@@T:+0201205,H:041291A,PM25:0037:,PM10:00505");
+						logTime.setTime(System.currentTimeMillis());
+						myObject.serialWriter("@@T:+0201205,H:041291A,PM25:0037:,PM10:00505", logTime.toString());
 					}
 					
 //					try {
