@@ -33,4 +33,8 @@ public class Timer {
 		
 		return false;
 	}
+	
+	public Date getStartTime() {
+		return new Date(startTime);
+	}
 }

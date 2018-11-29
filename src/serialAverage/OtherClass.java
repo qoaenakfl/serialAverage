@@ -89,11 +89,6 @@ public class OtherClass {
 	   
 	   System.out.println(writeText);
 	   fileio.FileWrite(writeText.toString(), logTime);
-	    
-	      
-//	    fileio.FileWrite(temp[i]);
-//	    fileio.FileWrite(val);
-//	    System.out.println(val);
 
 	    fileio.FileWrite("", logTime);
 
@@ -101,6 +96,10 @@ public class OtherClass {
 	    
 	    return temp;
 
+	  }
+	  
+	  public void getAver(String time) {
+		  
 	  }
 
 	  public void endprogram() {

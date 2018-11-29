@@ -24,17 +24,19 @@ public class MainClass {
 
 				while(true){
 					
+					logTime.setTime(System.currentTimeMillis());
+					myObject.serialWriter("@@T:+0201205,H:041291A,PM25:0037:,PM10:00505", logTime.toString());
+					
 					if(timer.checkTime()){
-						logTime.setTime(System.currentTimeMillis());
-						myObject.serialWriter("@@T:+0201205,H:041291A,PM25:0037:,PM10:00505", logTime.toString());
+						
 					}
 					
-//					try {
-//						Thread.sleep(1000);
-//						
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
+					try {
+						Thread.sleep(1000);
+						
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});
