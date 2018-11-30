@@ -1,5 +1,6 @@
 package serialAverage;
 
+import java.io.StreamTokenizer;
 import java.util.Date;
 
 public class Timer {
@@ -7,13 +8,14 @@ public class Timer {
 	private long startTime;
 	private long nowTime;
 //	private SimpleDateFormat dayTime;
-//	private Date startTime;
+	private Date startDate;
 //	private Date nowTime;
 	private int benchmark;
 	
 	public Timer(int t){
 		startTime = System.currentTimeMillis();
 		nowTime = System.currentTimeMillis();
+		startDate = new Date(startTime);
 //		dayTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 //		startTime = new Date(time);
 //		nowTime  = new Date(time);
@@ -27,14 +29,20 @@ public class Timer {
 		nowTime = System.currentTimeMillis();
 		
 		if(nowTime-startTime>=benchmark){
-			startTime = nowTime;
 			return true;
 		}
 		
 		return false;
 	}
 	
+	public void changeStarttime(){
+		startTime = nowTime;
+	}
+	
+	public long getStartTime_mil(){
+		return startTime;
+	}	
 	public Date getStartTime() {
-		return new Date(startTime);
+		return startDate;
 	}
 }

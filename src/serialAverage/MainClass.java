@@ -1,5 +1,8 @@
 package serialAverage;
 import java.util.Scanner;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainClass {
@@ -10,12 +13,26 @@ public class MainClass {
 		Date logTime = new Date();
 		
 		Scanner scanner = new Scanner(System.in);
-		OtherClass myObject = new OtherClass("serial.txt", "Json.txt");
-		
 		String sec;
 		System.out.println("input timer per sec : ");
 		sec = scanner.nextLine();
 		Timer timer = new Timer(Integer.parseInt(sec));
+		
+		DateFormat form = new SimpleDateFormat("YYYY-MM-dd");
+		
+		OtherClass myObject = new OtherClass("serial.log"+form.format(timer.getStartTime()), 
+				                             "Json.log"+form.format(timer.getStartTime()),
+				                             "aver.log"+form.format(timer.getStartTime()));
+		
+		final SerialConnect serial = new SerialConnect();
+		
+	     try{
+	            
+	            serial.connect("COM1"); //입력한 포트로 연결
+	        }catch(Exception e){
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
 		
 		Thread thread = new Thread(new Runnable() {
 			
@@ -23,12 +40,19 @@ public class MainClass {
 			public void run(){
 
 				while(true){
+					if(serial.getSerial() != ""){
+						logTime.setTime(System.currentTimeMillis());
+						myObject.JsonWriter(
+						myObject.serialWriter(serial.getSerial(), logTime.toString()), 
+						String.valueOf(timer.getStartTime_mil()));
+						serial.setSerial();
+					}
 					
-					logTime.setTime(System.currentTimeMillis());
-					myObject.serialWriter("@@T:+0201205,H:041291A,PM25:0037:,PM10:00505", logTime.toString());
 					
 					if(timer.checkTime()){
-						
+						myObject.JsonCreate(String.valueOf(timer.getStartTime_mil()));
+						myObject.getAver(String.valueOf(timer.getStartTime_mil()));
+						timer.changeStarttime();
 					}
 					
 					try {

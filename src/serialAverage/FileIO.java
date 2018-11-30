@@ -12,7 +12,6 @@ public class FileIO {
 		try{
 			file = new File(s);
 			Wbuffer = new BufferedWriter(new FileWriter(file, true));
-			Rbuffer = new BufferedReader(new FileReader(file));
 		}catch(IOException e){
 			System.out.println(e+"\n\n\n file create or read fail!!!");
 		}
@@ -40,19 +39,40 @@ public class FileIO {
 		}
 	}
 	
-	public void FileRead() {
-		String str = "";
-		if(file.isFile() && file.canRead()) {
+	public String FileRead() {
+		try {
+			Rbuffer = new BufferedReader(new FileReader(file));
 			
-			while(str!=null) {
+			String str = "";
+
+			if(file.isFile() && file.canRead()) {
+				
 				try {
-					str = Rbuffer.readLine();
+					String lastStr = "";
+					while(str != null){
+						lastStr = str;
+						str = Rbuffer.readLine();
+						if(str == null){
+							try {
+								Rbuffer.close();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							return lastStr;
+						}
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		
+		return "";
 	}
 	
 	public void FileClose() {

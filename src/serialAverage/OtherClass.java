@@ -3,43 +3,52 @@ package serialAverage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.json.simple.*;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class OtherClass {
 	  private String message;
 	  private boolean answer = false;
+	  
 	  private FileIO fileio;
 	  private FileIO Jsonfileio;
-	  private JSONObject jsonObject;
+	  private FileIO averfileio;
 	  
-	  public OtherClass(String s1, String s2){
+	  private JSONObject jsonObject;
+	  private JSONArray jsonArray;
+	  private JSONParser jsonparser;
+	  private Parser parser;
+	  
+	  public OtherClass(String s1, String s2, String s3){
 		  fileio = new FileIO(s1);
 		  Jsonfileio = new FileIO(s2);
+		  averfileio = new FileIO(s3);
+		  jsonObject = new JSONObject();
+		  jsonArray = new JSONArray();
+		  jsonparser = new JSONParser();
+		  parser = new Parser();
 	  }
 	  
-	  private void JsonWriter(String[] s, String time) {
-		  jsonObject = new JSONObject();
+	  public void JsonCreate(String time){
+		  jsonObject.put(time, jsonArray);
+		Jsonfileio.FileWrite(jsonObject.toString(), time);
+		jsonArray = new JSONArray();
+	  }
+	  
+	  public void JsonWriter(String[] s, String time) {
 		  JSONObject obj = new JSONObject();
 		  String[] temp;
 		  
-		  try {
-			temp = s[0].split(":");  
-			obj.put(temp[0], temp[1].substring(0, 4)+"."+temp[1].substring(4, 6));
-			temp = s[1].split(":");
-			obj.put(temp[0], temp[1].substring(1, 3)+"."+temp[1].substring(3, 5));
-			temp = s[2].split(":");
-			obj.put(temp[0], temp[1].substring(2, 4));
-			temp = s[3].split(":");
-			obj.put(temp[0], temp[1].substring(2, 4));
-			
-			jsonObject.put(time, obj);
-			Jsonfileio.FileWrite(jsonObject.toString(), time);
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		  temp = s[0].split(":");  
+		obj.put(temp[0], temp[1].substring(0, 4)+"."+temp[1].substring(4, 6));
+		temp = s[1].split(":");
+		obj.put(temp[0], temp[1].substring(1, 3)+"."+temp[1].substring(3, 5));
+		temp = s[2].split(":");
+		obj.put(temp[0], temp[1].substring(2, 4));
+		temp = s[3].split(":");
+		obj.put(temp[0], temp[1].substring(2, 4));
+		
+		jsonArray.add(obj);
 	  }
 	  
 	  public String[] serialWriter(String s, String logTime){	    
@@ -91,14 +100,27 @@ public class OtherClass {
 	   fileio.FileWrite(writeText.toString(), logTime);
 
 	    fileio.FileWrite("", logTime);
-
-	    JsonWriter(temp, logTime);
 	    
 	    return temp;
 
 	  }
 	  
 	  public void getAver(String time) {
+		  String str = Jsonfileio.FileRead();
+		  
+		  try {
+			parser.clear();  
+			JSONObject obj = (JSONObject)jsonparser.parse(str);
+			JSONArray arr = (JSONArray)obj.get(time);
+			for(int i = 0;i<arr.size();i++){
+				obj = (JSONObject) arr.get(i);
+				parser.Sum(obj);
+			}
+			averfileio.FileWrite(parser.Aver(arr.size()), time);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		  
 	  }
 
