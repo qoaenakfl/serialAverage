@@ -39,6 +39,10 @@ public class OtherClass {
 		  JSONObject obj = new JSONObject();
 		  String[] temp;
 		  
+		  if(s == null) {
+			  return;
+		  }
+		  
 		  temp = s[0].split(":");  
 		obj.put(temp[0], temp[1].substring(0, 4)+"."+temp[1].substring(4, 6));
 		temp = s[1].split(":");
@@ -61,6 +65,9 @@ public class OtherClass {
 	    StringBuffer writeText=new StringBuffer("");
 	    String[] temp2;
 	    
+	    if(s.length() == 0) {
+	    	return null;
+	    }
 	   
 		temp2 = temp[0].split(":");
 		writeText.append(temp2[0]);

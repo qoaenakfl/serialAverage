@@ -14,6 +14,7 @@ public class SerialConnect {
 	
 	void connect ( String portName ) throws Exception
     {
+		setSerial();
         CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
         if ( portIdentifier.isCurrentlyOwned() )
         {
@@ -22,13 +23,13 @@ public class SerialConnect {
         else
         {
             //클래스 이름을 식별자로 사용하여 포트 오픈
-            CommPort commPort = portIdentifier.open(this.getClass().getName(),2000);
+            CommPort commPort = portIdentifier.open(this.getClass().getName(),3000);
             
             if ( commPort instanceof SerialPort )
             {
                 //포트 설정(통신속도 설정)
                 SerialPort serialPort = (SerialPort) commPort;
-                serialPort.setSerialPortParams(8000,SerialPort.DATABITS_8,SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
+                serialPort.setSerialPortParams(9600,SerialPort.DATABITS_8,SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
                 
                 //Input,OutputStream 버퍼 생성 후 오픈
                 InputStream in = serialPort.getInputStream();

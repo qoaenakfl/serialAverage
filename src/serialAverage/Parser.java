@@ -16,22 +16,40 @@ public class Parser {
 	public String Aver(int size){
 		StringBuffer str = new StringBuffer();
 		
-		str.append("T :");
-		str.append(t/size);
-		str.append("µµ");
-		
-		str.append("H :");
-		str.append(h/size);
-		str.append("&");
-		
-		str.append("PM25 :");
-		str.append(pm25/size);
-		str.append("¥ìg/m3");
-		
-		str.append("PM10 :");
-		str.append(pm10/size);
-		str.append("¥ìg/m3");
-		
+		if(size == 0) {
+			str.append("T :");
+			str.append(0);
+			str.append("µµ");
+			
+			str.append("H :");
+			str.append(0);
+			str.append("&");
+			
+			str.append("PM25 :");
+			str.append(0);
+			str.append("¥ìg/m3");
+			
+			str.append("PM10 :");
+			str.append(0);
+			str.append("¥ìg/m3");
+		}else {
+			str.append("T :");
+			str.append(t/size);
+			str.append("µµ");
+			
+			str.append("H :");
+			str.append(h/size);
+			str.append("&");
+			
+			str.append("PM25 :");
+			str.append(pm25/size);
+			str.append("¥ìg/m3");
+			
+			str.append("PM10 :");
+			str.append(pm10/size);
+			str.append("¥ìg/m3");
+		}
+
 		return str.toString();
 	}
 

@@ -9,14 +9,15 @@ public class MainClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		//System.loadLibrary("rxtxSerial.dll");
 		
 		Date logTime = new Date();
 		
 		Scanner scanner = new Scanner(System.in);
-		String sec;
-		System.out.println("input timer per sec : ");
-		sec = scanner.nextLine();
-		Timer timer = new Timer(Integer.parseInt(sec));
+		String port;
+		System.out.println("input port : ");
+		port = scanner.nextLine();
+		Timer timer = new Timer(3600);
 		
 		DateFormat form = new SimpleDateFormat("YYYY-MM-dd");
 		
@@ -28,7 +29,7 @@ public class MainClass {
 		
 	     try{
 	            
-	            serial.connect("COM1"); //입력한 포트로 연결
+	            serial.connect("COM"+port); //입력한 포트로 연결
 	        }catch(Exception e){
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
@@ -40,14 +41,14 @@ public class MainClass {
 			public void run(){
 
 				while(true){
-					if(serial.getSerial() != ""){
+				
+					if(serial.getSerial().length() > 0){
 						logTime.setTime(System.currentTimeMillis());
 						myObject.JsonWriter(
 						myObject.serialWriter(serial.getSerial(), logTime.toString()), 
 						String.valueOf(timer.getStartTime_mil()));
-						serial.setSerial();
+						serial.setSerial();						
 					}
-					
 					
 					if(timer.checkTime()){
 						myObject.JsonCreate(String.valueOf(timer.getStartTime_mil()));
