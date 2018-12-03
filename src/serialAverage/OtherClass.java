@@ -105,8 +105,6 @@ public class OtherClass {
 	   
 	   System.out.println(writeText);
 	   fileio.FileWrite(writeText.toString(), logTime);
-
-	    fileio.FileWrite("", logTime);
 	    
 	    return temp;
 

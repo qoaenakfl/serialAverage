@@ -47,7 +47,6 @@ public class SerialConnect {
 	
 	public synchronized String getSerial(){
 		String s = str.toString();
-		System.out.println("Get Serial func : "+s);
 		return s;
 	}
 	
@@ -73,13 +72,13 @@ public class SerialConnect {
                 int len = -1;
                 
                 try{
-                	while ( ( len = this.in.read(buffer)) > -1 ){
-                		synchronized(str){
-                			str.append(new String(buffer,0,len));
-                		}
-                       }
-                       System.out.println("Listen Data : "+str.toString());   
-                   
+                	synchronized (str) {
+                		while ( ( len = this.in.read(buffer)) > 0 ){
+                    		str.append(new String(buffer,0,len));
+                        }
+                		if(len > 0)
+                			System.out.println("Listen Data : "+str.toString());
+					}
                 }
                 catch ( IOException e ){
                     e.printStackTrace();
