@@ -23,13 +23,19 @@ public class FileIO {
 			if(file.isFile() && file.canWrite()){
 				Wbuffer.write(s);
 				Wbuffer.newLine();
-				Wbuffer.flush();
+				
 				//buffer.close();
 				System.out.println(time+"file write success!!");
 			}
 		}catch(IOException e){
 			System.out.println(e+"\n\n\n file write fail!!");
 		}finally {
+			try {
+				Wbuffer.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //			try {
 //				buffer.close();
 //			} catch (IOException e) {

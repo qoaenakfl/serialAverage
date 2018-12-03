@@ -21,9 +21,9 @@ public class MainClass {
 		
 		DateFormat form = new SimpleDateFormat("YYYY-MM-dd");
 		
-		OtherClass myObject = new OtherClass("serial.log"+form.format(timer.getStartTime()), 
-				                             "Json.log"+form.format(timer.getStartTime()),
-				                             "aver.log"+form.format(timer.getStartTime()));
+		OtherClass myObject = new OtherClass("serial"+form.format(timer.getStartTime())+".txt", 
+				                             "Json"+form.format(timer.getStartTime())+".txt",
+				                             "aver"+form.format(timer.getStartTime())+".txt");
 		
 		final SerialConnect serial = new SerialConnect();
 		
@@ -42,19 +42,24 @@ public class MainClass {
 
 				while(true){
 				
-					if(serial.getSerial().length() > 0){
-						logTime.setTime(System.currentTimeMillis());
-						myObject.JsonWriter(
-						myObject.serialWriter(serial.getSerial(), logTime.toString()), 
-						String.valueOf(timer.getStartTime_mil()));
-						serial.setSerial();						
+					try{
+						if(serial.getSerial().length() > 0){
+							logTime.setTime(System.currentTimeMillis());
+							myObject.JsonWriter(
+							myObject.serialWriter(serial.getSerial(), logTime.toString()), 
+							String.valueOf(timer.getStartTime_mil()));
+							serial.setSerial();						
+						}
+						
+						if(timer.checkTime()){
+							myObject.JsonCreate(String.valueOf(timer.getStartTime_mil()));
+							myObject.getAver(String.valueOf(timer.getStartTime_mil()));
+							timer.changeStarttime();
+						}
+					}catch(Exception e){
+						System.out.println(e);
 					}
 					
-					if(timer.checkTime()){
-						myObject.JsonCreate(String.valueOf(timer.getStartTime_mil()));
-						myObject.getAver(String.valueOf(timer.getStartTime_mil()));
-						timer.changeStarttime();
-					}
 					
 					try {
 						Thread.sleep(1000);
