@@ -76,7 +76,7 @@ public class SerialConnect {
                 		while ( ( len = this.in.read(buffer)) > 0 ){
                     		str.append(new String(buffer,0,len));
                         }
-                		if(len > 0)
+                		if(str.toString() != null)
                 			System.out.println("Listen Data : "+str.toString());
 					}
                 }
