@@ -31,7 +31,7 @@ public class OtherClass {
 	  
 	  public void JsonCreate(String time){
 		  jsonObject.put(time, jsonArray);
-		Jsonfileio.FileWrite(jsonObject.toString(), time);
+		Jsonfileio.FileJsonWrite(jsonObject.toString(), time);
 		jsonArray = new JSONArray();
 	  }
 	  
@@ -110,18 +110,19 @@ public class OtherClass {
 
 	  }
 	  
-	  public void getAver(String time) {
+	  public void getAver(String time, String writeTime) {
 		  String str = Jsonfileio.FileRead();
 		  
 		  try {
-			parser.clear();  
+			parser.clear();
+			
 			JSONObject obj = (JSONObject)jsonparser.parse(str);
 			JSONArray arr = (JSONArray)obj.get(time);
 			for(int i = 0;i<arr.size();i++){
 				obj = (JSONObject) arr.get(i);
 				parser.Sum(obj);
 			}
-			averfileio.FileWrite(parser.Aver(arr.size()), time);
+			averfileio.FileWrite(parser.Aver(arr.size()), writeTime);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

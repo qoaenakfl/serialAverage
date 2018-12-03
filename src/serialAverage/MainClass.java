@@ -52,9 +52,10 @@ public class MainClass {
 						
 						if(timer.checkTime()){
 							myObject.JsonCreate(String.valueOf(timer.getStartTime_mil()));
-							myObject.getAver(String.valueOf(timer.getStartTime_mil()));
+							myObject.getAver(String.valueOf(timer.getStartTime_mil()), String.valueOf(timer.getStartTime()));
 							timer.changeStarttime();
 						}
+						
 					}catch(Exception e){
 						System.out.println(e);
 					}

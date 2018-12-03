@@ -23,9 +23,34 @@ public class FileIO {
 	public void FileWrite(String s, String time){
 		try{
 			if(file.isFile() && file.canWrite()){
-				Wbuffer.write(s);
+				Wbuffer.write(time+"\n       "+s);
 				Wbuffer.newLine();
-				Wbuffer.write(time);
+				
+				//buffer.close();
+				System.out.println(time+"file write success!!");
+			}
+		}catch(IOException e){
+			System.out.println(e+"\n\n\n file write fail!!");
+		}finally {
+			try {
+				Wbuffer.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			try {
+//				buffer.close();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+		}
+	}
+	
+	public void FileJsonWrite(String s, String time){
+		try{
+			if(file.isFile() && file.canWrite()){
+				Wbuffer.write(s);
 				Wbuffer.newLine();
 				
 				//buffer.close();
