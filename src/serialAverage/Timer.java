@@ -29,6 +29,7 @@ public class Timer {
 		nowTime = System.currentTimeMillis();
 		
 		if(nowTime-startTime>=benchmark){
+			System.out.println("Passed 1Hour! Start Time : "+startDate.toString()); 
 			return true;
 		}
 		

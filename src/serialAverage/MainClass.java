@@ -28,7 +28,6 @@ public class MainClass {
 		final SerialConnect serial = new SerialConnect();
 		
 	     try{
-	            
 	            serial.connect("COM"+port); //입력한 포트로 연결
 	        }catch(Exception e){
 	            // TODO Auto-generated catch block
@@ -61,12 +60,12 @@ public class MainClass {
 					}
 					
 					
-					try {
-						Thread.sleep(1000);
-						
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+//					try {
+//						Thread.sleep(1000);
+//						
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
 				}
 			}
 		});

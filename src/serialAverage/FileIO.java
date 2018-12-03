@@ -11,7 +11,9 @@ public class FileIO {
 	public FileIO(String s){
 		try{
 			file = new File(s);
+			
 			Wbuffer = new BufferedWriter(new FileWriter(file, true));
+			
 		}catch(IOException e){
 			System.out.println(e+"\n\n\n file create or read fail!!!");
 		}
@@ -22,6 +24,8 @@ public class FileIO {
 		try{
 			if(file.isFile() && file.canWrite()){
 				Wbuffer.write(s);
+				Wbuffer.newLine();
+				Wbuffer.write(time);
 				Wbuffer.newLine();
 				
 				//buffer.close();
